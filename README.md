@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Context API - Boilerplate
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the best place to reference [context](https://reactjs.org/docs/context.html)
 
-## Available Scripts
+The idea of this repo is to showcase what Context API can do.  That being said, with context the best way to utilize it is to sync it with a DB so that the data persists throughout the whole application with a refresh.
 
-In the project directory, you can run:
+Briefly, context allows data to pass through the tree without having to pass props manually at every level.  Meaning that you can utilize context so that any page could grab the information without having to place it in the parent and pass it down multiple levels.  It can also work via siblings, uncles, etc.
 
-### `npm start`
+## Initializing the project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Either clone or fork this repo
+2. Ensure that you have node 16.17+ and npm 8.15+
+3. ```npm i```
+4. ```npm start```
+   
+## Structure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Under ```context```, you can create a context file: usually camelCase with {name}Context.js.  
 
-### `npm test`
+Within that file, you will need a few things:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Initialize context object 
+   ```
+    const GameContext = createContext();
+   ```
+2. Create the provider 
+   ```
+    const GameProvider = ({ children }) => { 
+        return ( 
+            <GameContext.Provider value={{ whatever you need in here }}>
+                {children}
+            </GameContext.Provider>)
+    }
+   ```
+3. Export both the provider and context
+   ```
+    https://reactjs.org/docs/context.htmlexport { GameProvider, GameContext };
+   ```
 
-### `npm run build`
+## Utilizing Context
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once you exported the specific items.  You'll need to locate the spot where you'd want to utilize context.  For example, if you have an authContext and want to use it throughout your whole application, you can wrap your provider in App.js.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+import { GameProvider } from './context/gameContext.js'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+function App() {
+  return (
+    <GameProvider>
+     <div>
+        Hello World
+     </div>
+    </GameProvider>
+  );
+}
+```
 
-### `npm run eject`
+After you wrapped your app with the provider, then you can go to a specific file and grab the context.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+import { GameContext } from '../../context/gameContext.js'
+const { state: { achievements }, addCounter } = useContext(GameContext);
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
