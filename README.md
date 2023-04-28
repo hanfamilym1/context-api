@@ -1,6 +1,6 @@
 # Context API - Boilerplate
 
-React Documentation on [context](https://react.dev/learn/passing-data-deeply-with-context)
+React documentation on [context](https://react.dev/learn/passing-data-deeply-with-context)
 
 The idea of this repo is to showcase what Context can do.  That being said, with context the best way to utilize it is to sync it with a DB so that the data persists throughout the whole application with a refresh.
 
@@ -34,7 +34,7 @@ Within that file, you will need a few things:
    ```
 3. Export both the provider and context
    ```
-    https://reactjs.org/docs/context.htmlexport { GameProvider, GameContext };
+    export { GameProvider, GameContext };
    ```
 
 ## Utilizing Context
